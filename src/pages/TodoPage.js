@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { EatLoading } from "react-loadingg";
 import TodoForm from "../components/todo/TodoForm";
 import TodoList from "../components/todo/TodoList";
 import {
@@ -8,18 +9,32 @@ import {
   deleteTodo,
   updateTodo,
 } from "../redux/actions/todoActions";
+import { useHistory } from "react-router-dom";
 
-const TodoPage = ({ addTodo, updateTodo, deleteTodo, loadUserTodos, todo }) => {
+const TodoPage = ({
+  loadUserTodos,
+  addTodo,
+  updateTodo,
+  deleteTodo,
+  todo,
+  auth,
+}) => {
+  const history = useHistory();
+
   useEffect(() => {
-    loadUserTodos();
-  }, []);
+    if (!auth.isAuthenticated) {
+      history.push("/");
+    } else {
+      loadUserTodos();
+    }
+  }, [auth.isAuthenticated]);
 
   return (
     <div className="wrapper-body">
       <h1>To do list </h1>
       <TodoForm addTodo={addTodo} />
       {todo.isLoading ? (
-        <p>loading...</p>
+        <EatLoading style={{ position: "relative" }} />
       ) : (
         <TodoList
           todos={todo.todos}
@@ -33,8 +48,8 @@ const TodoPage = ({ addTodo, updateTodo, deleteTodo, loadUserTodos, todo }) => {
 
 const mapStateToProps = (state) => {
   return {
-    todo: state.todo,
     auth: state.auth,
+    todo: state.todo,
   };
 };
 

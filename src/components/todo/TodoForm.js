@@ -12,7 +12,7 @@ export default function TodoForm({ addTodo }) {
 
   return (
     <form className="wrapper-input" onSubmit={handleSubmit}>
-      <input type="text" name="task" />
+      <input type="text" name="task" required/>
       <button className="submit-btn" type="submit">
         Add To do
       </button>

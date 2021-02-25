@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import ErrorMsg from "../components/error/ErrorMsg";
 import { login } from "../redux/actions/authActions";
 
 const inititalState = {
@@ -8,8 +9,15 @@ const inititalState = {
   password: "",
 };
 
-const LoginPage = ({ login }) => {
+const LoginPage = ({ login, error, isAuthenticated }) => {
+  const history = useHistory();
   const [loginUser, setLoginUser] = useState(inititalState);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      history.push("/todo");
+    }
+  }, [isAuthenticated]);
 
   const handleChange = (e) => {
     setLoginUser({
@@ -25,6 +33,7 @@ const LoginPage = ({ login }) => {
 
   return (
     <div className="wrapper-body">
+      {error.status && error.status !== 401 && <ErrorMsg error={error} />}
       <h1>Login</h1>
       <div className="wrapper-form">
         <form onSubmit={handleSubmit}>
@@ -35,6 +44,7 @@ const LoginPage = ({ login }) => {
               onChange={handleChange}
               type="email"
               name="email"
+              required
             />
           </div>
 
@@ -45,6 +55,7 @@ const LoginPage = ({ login }) => {
               onChange={handleChange}
               type="password"
               name="password"
+              required
             />
           </div>
 

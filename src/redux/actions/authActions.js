@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { returnErrors } from "./errorActions";
+import { clearErrors, returnErrors } from "./errorActions";
 import {
   USER_LOADING,
   USER_LOADED,
@@ -31,6 +31,8 @@ export const loadUser = () => (dispatch, getState) => {
 
 // REGISTER USER
 export const register = ({ username, email, password }) => (dispatch) => {
+  dispatch({ type: USER_LOADING });
+
   //   HEADERS
   const config = {
     headers: {
@@ -41,7 +43,9 @@ export const register = ({ username, email, password }) => (dispatch) => {
   const body = { username, email, password };
   axios
     .post(url + "signup", body, config)
-    .then((res) => dispatch({ type: REGISTER_SUCCESS, payload: res.data }))
+    .then((res) => {
+      dispatch({ type: REGISTER_SUCCESS, payload: res.data });
+    })
     .catch((err) => {
       dispatch(returnErrors(err.response.data, err.response.status));
       dispatch({ type: REGISTER_FAILURE });
@@ -50,6 +54,8 @@ export const register = ({ username, email, password }) => (dispatch) => {
 
 // LOGIN
 export const login = ({ email, password }) => (dispatch) => {
+  dispatch({ type: USER_LOADING });
+
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -59,10 +65,15 @@ export const login = ({ email, password }) => (dispatch) => {
   const body = { email, password };
   axios
     .post(url + "signin", body, config)
-    .then((res) => dispatch({ type: LOGIN_SUCCESS, payload: res.data }))
+    .then((res) => {
+      dispatch({ type: LOGIN_SUCCESS, payload: res.data });
+    })
     .catch((err) => {
       dispatch(returnErrors(err.response.data, err.response.status));
       dispatch({ type: LOGIN_FAILURE });
+      setTimeout(() => {
+        dispatch(clearErrors());
+      }, 2000);
     });
 };
 
@@ -72,5 +83,3 @@ export const logout = () => {
     type: LOGOUT_SUCCESS,
   };
 };
-
-
