@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { EatLoading } from "react-loadingg";
 import TodoForm from "../components/todo/TodoForm";
 import TodoList from "../components/todo/TodoList";
 import {
@@ -9,17 +10,17 @@ import {
   updateTodo,
 } from "../redux/actions/todoActions";
 
-const TodoPage = ({ addTodo, updateTodo, deleteTodo, loadUserTodos, todo }) => {
+const TodoPage = ({ loadUserTodos, addTodo, updateTodo, deleteTodo, todo }) => {
   useEffect(() => {
-    loadUserTodos();
-  }, []);
+    loadUserTodos()
+  }, [loadUserTodos]);
 
   return (
     <div className="wrapper-body">
       <h1>To do list </h1>
       <TodoForm addTodo={addTodo} />
       {todo.isLoading ? (
-        <p>loading...</p>
+        <EatLoading style={{ position: "relative" }} />
       ) : (
         <TodoList
           todos={todo.todos}
