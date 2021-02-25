@@ -4,7 +4,7 @@ Built using React, Redux, and Node.js.
 
 ## Getting Started
 
-1. Go to []() clone repository, follow the instructions and run locally *node js server*.
+1. Go to [TODO-APP-SERVER](https://github.com/aemabit/todo-app-server) clone repository, follow the instructions and run locally *node js server*.
 
 2. Start the app
 ```
