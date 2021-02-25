@@ -4,7 +4,7 @@ import { CLEAR_ERRORS, GET_ERRORS } from "../types/errorTypes";
 export const returnErrors = (msg, status = null) => {
   return {
     type: GET_ERRORS,
-    payload: { msg, status},
+    payload: { msg, status },
   };
 };
 

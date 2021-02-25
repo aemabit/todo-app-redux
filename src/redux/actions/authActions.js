@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { returnErrors } from "./errorActions";
+import { clearErrors, returnErrors } from "./errorActions";
 import {
   USER_LOADING,
   USER_LOADED,
@@ -63,6 +63,9 @@ export const login = ({ email, password }) => (dispatch) => {
     .catch((err) => {
       dispatch(returnErrors(err.response.data, err.response.status));
       dispatch({ type: LOGIN_FAILURE });
+      setTimeout(() => {
+        dispatch(clearErrors());
+      }, 2000);
     });
 };
 
@@ -72,5 +75,3 @@ export const logout = () => {
     type: LOGOUT_SUCCESS,
   };
 };
-
-

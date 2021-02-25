@@ -142,3 +142,16 @@ li {
     background: cornflowerblue;
     color: cornsilk;
 }
+/* ERROR */
+
+.wrapper-error {
+  background: crimson;
+  border-radius:  8px;
+  padding: 5px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: cornsilk;
+  font-weight: 700;
+}

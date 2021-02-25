@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import ErrorMsg from "../components/error/ErrorMsg";
 import { register } from "../redux/actions/authActions";
 
 const inititalState = {
@@ -26,6 +27,8 @@ const RegisterPage = ({ isAuthenticated, error, register }) => {
 
   return (
     <div className="wrapper-body">
+      {error.status && error.status !== 401 && <ErrorMsg error={error} />}
+
       <h1>Register</h1>
       <div className="wrapper-form">
         <form onSubmit={handleSubmit}>
@@ -36,6 +39,7 @@ const RegisterPage = ({ isAuthenticated, error, register }) => {
               onChange={handleChange}
               type="text"
               name="username"
+              required
             />
           </div>
 
@@ -46,6 +50,7 @@ const RegisterPage = ({ isAuthenticated, error, register }) => {
               onChange={handleChange}
               type="email"
               name="email"
+              required
             />
           </div>
 
@@ -56,6 +61,7 @@ const RegisterPage = ({ isAuthenticated, error, register }) => {
               onChange={handleChange}
               type="password"
               name="password"
+              required
             />
           </div>
 
