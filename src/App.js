@@ -10,7 +10,6 @@ import TodoPage from "./pages/TodoPage";
 
 import { loadUser } from "./redux/actions/authActions";
 import NavBar from "./components/navbar";
-import PrivateRoute from "./utils/PrivateRoute";
 
 function App() {
   useEffect(() => {
@@ -24,7 +23,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={RegisterPage}></Route>
           <Route path="/login" component={LoginPage}></Route>
-          <Route path="/todo" component={TodoPage}></Route>{" "}
+          <Route path="/todo" component={TodoPage}></Route>
         </Switch>
       </BrowserRouter>
     </Provider>
