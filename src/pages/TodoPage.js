@@ -9,11 +9,25 @@ import {
   deleteTodo,
   updateTodo,
 } from "../redux/actions/todoActions";
+import { useHistory } from "react-router-dom";
 
-const TodoPage = ({ loadUserTodos, addTodo, updateTodo, deleteTodo, todo }) => {
+const TodoPage = ({
+  loadUserTodos,
+  addTodo,
+  updateTodo,
+  deleteTodo,
+  todo,
+  auth,
+}) => {
+  const history = useHistory();
+
   useEffect(() => {
-    loadUserTodos()
-  }, [loadUserTodos]);
+    if (!auth.isAuthenticated) {
+      history.push("/");
+    } else {
+      loadUserTodos();
+    }
+  }, [auth.isAuthenticated]);
 
   return (
     <div className="wrapper-body">
@@ -34,8 +48,8 @@ const TodoPage = ({ loadUserTodos, addTodo, updateTodo, deleteTodo, todo }) => {
 
 const mapStateToProps = (state) => {
   return {
-    todo: state.todo,
     auth: state.auth,
+    todo: state.todo,
   };
 };
 

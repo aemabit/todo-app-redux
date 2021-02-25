@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import ErrorMsg from "../components/error/ErrorMsg";
 import { register } from "../redux/actions/authActions";
 
@@ -10,8 +10,15 @@ const inititalState = {
   password: "",
 };
 
-const RegisterPage = ({ isAuthenticated, error, register }) => {
+const RegisterPage = ({ error, register, isAuthenticated }) => {
+  const history = useHistory();
   const [registerUser, setRegisterUser] = useState(inititalState);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      history.push("/todo");
+    }
+  }, [isAuthenticated]);
 
   const handleChange = (e) => {
     setRegisterUser({
