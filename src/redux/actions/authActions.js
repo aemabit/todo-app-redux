@@ -13,7 +13,7 @@ import {
 } from "../types/authTypes";
 import { tokenConfig } from "../../utils/tokenConfig";
 
-const url = "http://localhost:4000/api/auth/";
+const url = "https://todo-app-server-aemabit.herokuapp.com/api/auth/";
 
 // CHECK TOKEN AND LOAD USER
 export const loadUser = () => (dispatch, getState) => {

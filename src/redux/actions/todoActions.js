@@ -9,7 +9,7 @@ import {
 import axios from "axios";
 import { tokenConfig } from "../../utils/tokenConfig";
 
-const url = "http://localhost:4000/api/todo/";
+const url = "https://todo-app-server-aemabit.herokuapp.com/api/todo/";
 
 // LOAD USER TODO
 export const loadUserTodos = () => (dispatch, getState) => {
